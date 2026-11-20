@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Java
@@ -21,16 +21,21 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle
+      - name: Install Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
 
-      - name: Build APK
-        run: gradle assembleDebug
+      - name: Check project directory
+        run: |
+          ls -la
+          find . -name settings.gradle.kts -o -name settings.gradle
+
+      - name: Build Android APK
+        run: gradle -p LocalCricketScorer assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Local-Cricket-Scorer-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: LocalCricketScorer/app/build/outputs/apk/debug/*.apk
