@@ -1,5 +1,5 @@
 
-name: Build Local Cricket Scorer APK
+name: Local Cricket Scorer APK
 
 on:
   workflow_dispatch:
